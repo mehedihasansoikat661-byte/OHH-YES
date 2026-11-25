@@ -1,1 +1,307 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100b18">
+<title>OHH YES</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#100b18;color:#fff;
+ font-family:Arial,sans-serif;padding-bottom:85px
+}
+header{
+ padding:22px 18px;background:#181022;
+ display:flex;justify-content:space-between;align-items:center;
+ border-bottom:1px solid #30213e
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:#f18bd1}
+.logo span{color:white}
+main{padding:18px}
+h2{font-size:21px;margin:12px 0}
+.sub{color:#c2afca;font-size:13px;line-height:1.5}
+.hero{
+ padding:22px;border-radius:20px;
+ background:linear-gradient(135deg,#642454,#21132e);
+ margin-bottom:25px
+}
+.hero h1{font-size:27px;margin:8px 0}
+.characters{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:13px
+}
+.character{
+ background:#21182b;border:1px solid #56304f;
+ border-radius:17px;padding:12px;cursor:pointer
+}
+.avatar{
+ height:125px;border-radius:12px;
+ display:flex;align-items:center;justify-content:center;
+ font-size:42px;background:linear-gradient(145deg,#713b70,#291b43);
+ margin-bottom:10px;color:#ffd0ee
+}
+.character h3{margin:5px 0;color:#f6a2dc}
+button{
+ border:0;border-radius:12px;padding:12px 16px;
+ background:#d64ba9;color:white;font-weight:bold;cursor:pointer
+}
+.secondary{background:#35243f;color:#eee}
+.panel{
+ background:#21182b;border:1px solid #49304d;
+ padding:16px;border-radius:16px;margin:13px 0
+}
+nav{
+ position:fixed;bottom:0;left:0;right:0;
+ display:flex;justify-content:space-around;
+ background:#1b1225;padding:13px 4px;
+ border-top:1px solid #392846
+}
+nav button{background:transparent;color:#c9b8d1;padding:8px;font-size:12px}
+input,textarea,select{
+ width:100%;padding:13px;border-radius:10px;
+ border:1px solid #493451;background:#160f20;
+ color:white;margin:7px 0
+}
+input[type=checkbox],input[type=range]{width:auto}
+.chatbox{height:260px;overflow:auto}
+.message{
+ padding:11px 13px;border-radius:13px;
+ background:#382442;margin:10px 0;max-width:85%
+}
+.me{background:#813d78;margin-left:auto}
+.hidden{display:none}
+.row{display:flex;gap:8px;align-items:center}
+.row input{flex:1;min-width:0}
+.small{font-size:12px;color:#a99bb4}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">🫦 <span>OHH YES</span></div>
+ <div>⚙️</div>
+</header>
+
+<main>
+
+<section id="home">
+ <div class="hero">
+  <div class="sub">YOUR PRIVATE AI COMPANION</div>
+  <h1>Welcome to OHH YES 🔥</h1>
+  <p>Meet your AI companions and start a conversation.</p>
+  <button onclick="show('characters')">Explore Characters</button>
+ </div>
+
+ <h2>Your Characters</h2>
+
+ <div class="characters">
+
+  <div class="character" onclick="openChat('SHAYLA')">
+   <div class="avatar">S</div>
+   <h3>SHAYLA</h3>
+   <div class="sub">Bold · Naughty · Passionate · Flirty</div>
+   <p class="small">Mature, playful and teasing personality.</p>
+  </div>
+
+  <div class="character" onclick="openChat('MUNAL')">
+   <div class="avatar">M</div>
+   <h3>MUNAL</h3>
+   <div class="sub">Teasing · Sensual · Romantic · Flirty</div>
+   <p class="small">Playful, affectionate and expressive.</p>
+  </div>
+
+  <div class="character" onclick="openChat('SHARMILA')">
+   <div class="avatar">Sh</div>
+   <h3>SHARMILA</h3>
+   <div class="sub">Confident · Mischievous · Passionate · Flirty</div>
+   <p class="small">Confident, charming and adventurous.</p>
+  </div>
+
+ </div>
+</section>
+
+<section id="characters" class="hidden">
+ <h2>Choose Your Companion</h2>
+ <div class="panel" onclick="openChat('SHAYLA')">
+  <h3>SHAYLA ❤️</h3>
+  <p class="sub">Bold, playful and passionate.</p>
+  <button>Start Chat</button>
+ </div>
+ <div class="panel" onclick="openChat('MUNAL')">
+  <h3>MUNAL ❤️</h3>
+  <p class="sub">Teasing, romantic and expressive.</p>
+  <button>Start Chat</button>
+ </div>
+ <div class="panel" onclick="openChat('SHARMILA')">
+  <h3>SHARMILA ❤️</h3>
+  <p class="sub">Confident, flirty and mischievous.</p>
+  <button>Start Chat</button>
+ </div>
+</section>
+
+<section id="chat" class="hidden">
+ <button class="secondary" onclick="show('home')">← Back</button>
+ <h2 id="chatName">SHAYLA</h2>
+ <div class="sub" id="personality"></div>
+
+ <div class="panel">
+  <div class="chatbox" id="messages">
+   <div class="message">Hello! ❤️ I'm happy to see you.</div>
+  </div>
+
+  <div class="row">
+   <input id="chatInput" placeholder="Write a message...">
+   <button onclick="sendMessage()">Send</button>
+  </div>
+ </div>
+
+ <p class="small">
+ AI connection is not active yet. This is the initial chat interface.
+ </p>
+</section>
+
+<section id="wardrobe" class="hidden">
+ <h2>Dress Customization 👗</h2>
+ <p class="sub">Choose a character and outfit style.</p>
+
+ <div class="panel">
+  <label>Character</label>
+  <select id="dressCharacter">
+   <option>SHAYLA</option>
+   <option>MUNAL</option>
+   <option>SHARMILA</option>
+  </select>
+
+  <label>Outfit</label>
+  <select id="outfit">
+   <option>Traditional Saree</option>
+   <option>Glamorous Saree</option>
+   <option>Deep-neck Blouse</option>
+   <option>Sleeveless Blouse</option>
+   <option>Backless Blouse</option>
+   <option>Mini Skirt</option>
+   <option>Shorts</option>
+   <option>Western Dress</option>
+   <option>Evening Gown</option>
+   <option>Bikini / Beachwear</option>
+   <option>Lingerie-inspired Fashion</option>
+   <option>Crop Top</option>
+   <option>Party Wear</option>
+  </select>
+
+  <label>Outfit Color</label>
+  <input type="color" id="outfitColor" value="#a52a80">
+
+  <button onclick="saveOutfit()">Save Preference</button>
+  <p id="wardrobeStatus" class="small"></p>
+ </div>
+</section>
+
+<section id="voice" class="hidden">
+ <h2>Voice & Sound Studio 🎧</h2>
+
+ <div class="panel">
+  <h3>Voice Experience</h3>
+  <p class="sub">Bengali voice, voice messages and live voice integration planned.</p>
+  <button class="secondary" onclick="alert('Voice service will be connected in a later phase.')">
+   Voice Settings
+  </button>
+ </div>
+
+ <div class="panel">
+  <h3>Sound Effects</h3>
+  <label><input type="checkbox"> Breathing Effects</label><br>
+  <label><input type="checkbox"> Kissing Effects</label><br>
+  <label><input type="checkbox"> Romantic Voice Effects</label><br>
+  <label><input type="checkbox"> Expressive Voice Reactions</label><br>
+  <label>Volume</label>
+  <input type="range" min="0" max="100" value="60">
+  <p class="small">Sound playback will be connected later.</p>
+ </div>
+</section>
+
+<section id="settings" class="hidden">
+ <h2>Settings ⚙️</h2>
+ <div class="panel">
+  <p>App Name: OHH YES</p>
+  <p>Version: 1.0 Prototype</p>
+  <p>Language: বাংলা / English</p>
+  <p>Privacy: Personal Use</p>
+  <p>Theme: Premium Dark</p>
+ </div>
+</section>
+
+</main>
+
+<nav>
+ <button onclick="show('home')">⌂<br>Home</button>
+ <button onclick="show('characters')">♡<br>Characters</button>
+ <button onclick="show('wardrobe')">♧<br>Wardrobe</button>
+ <button onclick="show('voice')">♫<br>Voice</button>
+ <button onclick="show('settings')">⚙<br>Settings</button>
+</nav>
+
+<script>
+const personalities={
+ SHAYLA:"Bold · Naughty · Passionate · Flirty",
+ MUNAL:"Teasing · Sensual · Romantic · Flirty",
+ SHARMILA:"Confident · Mischievous · Passionate · Flirty"
+};
+
+function show(id){
+ document.querySelectorAll('main section')
+ .forEach(s=>s.classList.add('hidden'));
+
+ document.getElementById(id).classList.remove('hidden');
+}
+
+function openChat(name){
+ document.getElementById('chatName').innerText=name;
+ document.getElementById('personality').innerText=personalities[name];
+
+ const box=document.getElementById('messages');
+ box.innerHTML='<div class="message">Hello! ❤️ Welcome back.</div>';
+
+ show('chat');
+}
+
+function sendMessage(){
+ const input=document.getElementById('chatInput');
+ const box=document.getElementById('messages');
+
+ if(!input.value.trim())return;
+
+ const msg=document.createElement('div');
+ msg.className='message me';
+ msg.textContent=input.value;
+
+ box.appendChild(msg);
+ input.value='';
+ box.scrollTop=box.scrollHeight;
+}
+
+function saveOutfit(){
+ const character=document.getElementById('dressCharacter').value;
+ const outfit=document.getElementById('outfit').value;
+ const color=document.getElementById('outfitColor').value;
+
+ try{
+  localStorage.setItem(
+   'ohhyes_outfit_'+character,
+   JSON.stringify({outfit:outfit,color:color})
+  );
+  document.getElementById('wardrobeStatus').innerText=
+   'Preference saved for '+character+'!';
+ }catch(e){
+  document.getElementById('wardrobeStatus').innerText=
+   'Could not save preference on this device.';
+ }
+}
+</script>
+
+</body>
+  </html>
+  
