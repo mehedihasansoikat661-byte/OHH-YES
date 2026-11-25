@@ -1,3 +1,4 @@
+
 name: Build OHH YES APK
 
 on:
@@ -19,6 +20,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Prepare web files
+        run: |
+          mkdir -p www
+          cp index.html www/index.html
+
       - name: Install Capacitor
         run: |
           npm init -y
@@ -26,7 +32,7 @@ jobs:
 
       - name: Configure Capacitor
         run: |
-          npx cap init "OHH YES" "com.ohhyes.companion" --web-dir=.
+          npx cap init "OHH YES" "com.ohhyes.companion" --web-dir=www
           npx cap add android
           npx cap sync android
 
@@ -47,3 +53,4 @@ jobs:
         with:
           name: OHH-YES-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          
